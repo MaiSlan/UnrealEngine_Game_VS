@@ -111,7 +111,24 @@ Open a Blueprint with a double-click. Main parts:
 - **"Compile" vs "Save":** compile applies Blueprint logic changes; save writes to disk. Do both.
 - **Hot reload:** not relevant until we use C++.
 
-## 9. Where to learn more (free)
+## 9. Top Down template tour (what's already in the project)
+
+The project was created from Unreal's **Top Down** template. Everything below is a working example you can read. We'll build our own versions with WASD movement, but it shows the framework in action.
+
+| Asset (Content/TopDown/…) | What it is | What to look for |
+|---|---|---|
+| `Lvl_TopDown` | The level that opens by default | Press Play, click the floor: the character walks there |
+| `Blueprints/BP_TopDownGameMode` | Rules of the match | Which Pawn and Controller classes it uses |
+| `Blueprints/BP_TopDownController` | The PlayerController (input → movement) | How it turns a click into a movement command |
+| `Blueprints/BP_TopDownCharacter` | The player Character | Its components: camera on a spring arm, mesh, capsule |
+| `Input/IMC_Default` and `Input/Actions/…` | Enhanced Input mapping and actions | Which key/click maps to which Input Action |
+| `Content/Characters/Mannequins`, `Content/LevelPrototyping` | Template character art and grey-box props | Free placeholder meshes we can borrow |
+
+How to read a Blueprint without changing anything: double-click it, look at the Components list, then open the Event Graph and follow the white execution wires from the red event node. Don't edit the template files; duplicate them first (right-click → Duplicate) if you want to experiment.
+
+Config note: `Config/DefaultEngine.ini` still points the default map and GameMode at the template. We will change that when we build `L_Arena` and `BP_VSGameMode` (roadmap Phase 2).
+
+## 10. Where to learn more (free)
 
 - Epic Developer Community → Learning (search "Your First Hour in Unreal Engine 5", the Blueprint learning paths, and Enhanced Input). Choose material made for 5.x.
 - Official docs: dev.epicgames.com/documentation (set the version selector to 5.8).

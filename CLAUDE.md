@@ -1,16 +1,19 @@
-# Vampire Survivor-Like in Unreal Engine 5.8 — Project Guide
+# Branded Descent in Unreal Engine 5.8 — Project Guide
 
 This file orients any Claude session (chat, Project, or Claude Code) working on this project.
 **Read it first, then `docs/roadmap.md` for what to do next.** It is also the human's quick reference.
 
 ## What this project is
 
-A 3D / 2.5D top-down remake of an existing browser game ("Branded Descent", a Vampire Survivors-like built
-with Phaser 4 + React + FastAPI + Supabase) in **Unreal Engine 5.8.3**. The goals are:
+A 3D remake, in **Unreal Engine 5.8.3**, of an existing browser game ("Branded Descent", a Vampire Survivors-like built
+with Phaser 4 + React + FastAPI + Supabase). Since 2026-10-13 (decision D-017) it is a **boss-focused action game**
+with a tilted camera (about 30–45°): six distinct heroes with four relics (weapons) each, fighting hand-designed bosses
+with a small pack of minions. It is no longer a screen-filling horde survivor. The project, repo and folder names still
+say `VampireSurvivorLike`. The goals are:
 
 1. **Learn Unreal Engine properly** (industry standard) by building something real that I already understand as a game design.
 2. Build a portfolio project and a reusable knowledge base.
-3. Reuse the existing game's *design* (heroes, monsters, weapons, timeline, balance numbers) and, where it works, its art.
+3. Reuse the existing game's *design* (heroes, relics, monsters, bosses, lore, balance numbers) and, where it works, its art.
 
 The human is a **beginner in game engines** but strong in Python, SQL, JavaScript, Java, PHP, HTML, data engineering
 and Power BI, and has used node-based low-code tools (Power Automate, Azure Logic Apps). Explain Unreal concepts by
@@ -21,7 +24,8 @@ analogy to those where it helps. The human is a game designer at heart: they kno
 | Thing | Location |
 |---|---|
 | Unreal Engine 5.8.3 install | `D:\Program Files\Epic Games\UE_5.8` |
-| Unreal project (local) | `D:\UE_Projects\VampireSurvivorLike 5.8` (see Open Issue #1 about this name) |
+| Unreal project (local, = the git repo root) | `D:\UE_Projects\VampireSurvivorLike` (`VampireSurvivorLike.uproject`, Blueprint, Top Down template) |
+| Documentation mirror (local) | `C:\Users\BasileH\Documents\Documents\Portfolio Projects\UE_docs` |
 | Source art / generated models | `D:\UE_Projects\models` (FBX from Meshy; see `docs/asset-pipeline.md`) |
 | Unreal repo (GitHub, empty at start) | https://github.com/MaiSlan/UnrealEngine_Game_VS |
 | Original Phaser game (reference) | https://github.com/MaiSlan/capstone-game-vs |
@@ -37,7 +41,7 @@ copied Blueprint text (see `docs/unreal-editor-guide.md`), and the repos.
 - **Blueprint first, C++ later** (decision D-001). Don't introduce C++ until the roadmap says so.
 - **Data-driven like the Phaser game.** Balance numbers live in Data Tables, not hard-coded in graphs (decision D-008).
 - **Greybox first, art later.** Never let missing art block a gameplay step.
-- **Use the reference.** The Phaser repo is the design spec. See `docs/phaser-to-unreal-map.md` before designing any system.
+- **Use the reference.** The Phaser repo is the design spec. See `docs/phaser-to-unreal-map.md` before designing any system. For names and lore, `Characters_and_Lore.docx` (kept outside the repo) is the source of truth; the older `Monsters.docx` has some outdated names.
 - **Be honest about versions.** Unreal changes between releases. Mark anything unverified for 5.8 with "(verify in 5.8)".
 - **Debugging Blueprints:** ask for a screenshot or for the nodes copied as text (select nodes, Ctrl+C, paste into chat).
 - **Keep this knowledge base alive:** after each working session, update `docs/roadmap.md` checkboxes, append to
@@ -107,12 +111,17 @@ Content/VSL/
 
 ## Open issues
 
-1. **Project folder/name.** The local folder is `VampireSurvivorLike 5.8` (space and a dot). If the `.uproject` file itself is named like that,
-   adding C++ later will be painful (the project name becomes a code module name and must be a valid identifier).
-   Check the `.uproject` filename; if it contains a space or a dot, recreate the project as `VampireSurvivorLike`
-   *before* building anything (it is cheap right now). See roadmap Phase 0.
-2. **Art licensing.** Models made on Meshy's free plan are CC BY 4.0 (credit required). Track in `docs/asset-log.md`.
-3. **Template choice.** Confirm which template the project was created from (Top Down vs Blank). Either works; note it in `docs/decisions.md`.
+1. **Art licensing.** Models made on Meshy's free plan are CC BY 4.0 (credit required). Track in `docs/asset-log.md`.
+2. **Template content.** The Top Down template (click-to-move, mannequins, LevelPrototyping) is in the project as a working reference; our game uses WASD and our own character. Prune unused template assets later (D-015).
+3. **Git LFS quota.** The first push stored about 136 MB in LFS (244 `.uasset` files). GitHub's free plan has a limited LFS storage/bandwidth quota; keep an eye on it and avoid committing large source art (D-005).
+4. **Camera and controls.** Camera pitch/yaw (D-018) and the control scheme, manual aim or auto-attack (D-019), are still open. They are settled by playing the grey-box fight (roadmap Phases 2 and 3).
+5. **How heroes grow.** XP and level-ups during a fight, or rewards between fights, is not decided yet (see D-017, "Still open").
+
+*Resolved:* project name/folder (D-007) and template choice (D-014).
+
+## Documentation upkeep
+
+The repo copy is canonical. When a session produces something worth keeping (a technical solution, a tricky setup, a design decision, a lesson learned), Claude **proposes** adding it to the docs and the human decides. Keep the mirror at `UE_docs` and the Project copy in sync with the repo.
 
 ## Current status
 
